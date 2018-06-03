@@ -68,6 +68,7 @@ def login_success():
 def logout():
 	session.pop('username')
 	session.pop('is_author')
+	session.pop('id')
 	flash('User logged out')
 	return redirect(url_for('login'))
 	
