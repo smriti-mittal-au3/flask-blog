@@ -1,4 +1,4 @@
-from flask_blog import app
+from flask_blog import db, app
 from author.form import RegisterForm, LoginForm
 from flask import render_template, redirect, url_for, session, request, flash
 from author.models import Author
@@ -40,7 +40,8 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         salt = bcrypt.gensalt()
-        hashed_password = bcrypt.hashpw(form.password.data, salt)
+        password = form.password.data
+        hashed_password = bcrypt.hashpw(password.encode('utf8'), salt)
         author = Author(
             form.fullname.data,
             form.email.data,
