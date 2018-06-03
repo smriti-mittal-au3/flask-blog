@@ -22,6 +22,7 @@ def login():
 			if bcrypt.hashpw(c,d)==d:
 				session['username']=form.username.data
 				session['is_author']=author.is_author
+				session['id']=author.id
 				flash('User %s is loggedin' %(form.username.data))
 				if 'next' in session:
 					next=session.get('next')
@@ -51,7 +52,7 @@ def register():
         )
         db.session.add(author)
         db.session.commit()
-        return redirect('/success')
+        return redirect(url_for('index'))
     return render_template('author/register.html', form=form)
 	
 @app.route('/success')
