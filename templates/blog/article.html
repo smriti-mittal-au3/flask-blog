@@ -13,11 +13,11 @@
 			<!-- {% if session.get('is_author') %} -->
 			<!-- {% if author %} -->
 			{% if session.get('is_author') %}
-				<a href="{{ url_for('delete', post_id=post.id) }}">Delete</a>
+				<a href="{{ url_for('delete', post_id=post.id) }}">Delete</a>-
 				<a href="{{ url_for('edit', post_id=post.id) }}">Edit</a>
 			{% endif %}
 			
-			{{post.body|markdown}}
+			{{ post.body|markdown }}
 			
 			<div class="text-muted"> Posted by 
 				<a href="#">{{ post.author.fullname }}</a> 

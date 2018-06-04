@@ -13,7 +13,7 @@
 		{% from "_formhelpers.html" import render_field %}
 
 		{% if action=="edit" %}
-			<form method="POST" action="{{url_for('edit', post_id=post.id)}}" enctype="multipart/form-data" role="form">
+			<form method="POST" action="{{ url_for('edit', post_id=post.id) }}" enctype="multipart/form-data" role="form">
 		{% else %}
 			<form method="POST" action="{{ url_for('post') }}" enctype="multipart/form-data" role="form">
 		{% endif %}
