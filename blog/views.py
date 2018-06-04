@@ -18,23 +18,31 @@ POSTS_PER_PAGE=5
 def index(page=1):
 	#blog=Blog.query.first()
 	user_id = session.get('id')
+	print(user_id)
 	blog = Blog.query.filter_by(admin=user_id).first() #if user has created a blog, then, get it
 	print(blog)
 	if not blog:
 		return redirect(url_for('setup'))
-	posts=Post.query.filter_by(live=True, blog_id=blog.id).order_by(Post.publish_date.desc()).paginate(page,POSTS_PER_PAGE,True)
+	posts=Post.query.filter_by(live=True, author_id=user_id).order_by(Post.publish_date.desc()).paginate(page,POSTS_PER_PAGE,True)
 	return render_template('blog/index.html', blog=blog, posts=posts)
 	
 	
 @app.route('/admin')
-@author_required
+#@author_required
 @login_required
 def admin():
-	if session.get('is_author'):
-		posts=Post.query.order_by(Post.publish_date.desc())
-		return render_template('blog/admin.html', posts=posts)
-	else:
-		return abort(403)
+
+	user_id = session.get('id')
+	print(user_id)
+	blog = Blog.query.filter_by(admin=user_id).first()
+	print(blog)
+	#if session.get('is_author'):
+	#if not Post.query.filter_by(author_id=user_id):
+	#	return redirect(url_for('post'))
+	posts=Post.query.filter_by(author_id=user_id).order_by(Post.publish_date.desc())
+	return render_template('blog/admin.html', posts=posts)
+	#else:
+	#	return abort(403)
 	
 @app.route('/setup', methods=['GET','POST'])
 def setup():
@@ -69,7 +77,7 @@ def setup():
 	return render_template('blog/setup.html', form=form, error=error)
 
 @app.route('/post',methods=['GET','POST'])
-@author_required
+#@author_required
 def post():
 	form = PostForm()
 	if form.validate_on_submit():
@@ -103,11 +111,14 @@ def post():
 	
 @app.route('/article/<slug>')
 def article(slug):
+	author=False
 	post=Post.query.filter_by(slug=slug).first_or_404()
-	return render_template('blog/article.html', post=post)
+	if session.get('id')==post.author_id:
+		author=True
+	return render_template('blog/article.html', post=post, author=author)
 	
 @app.route('/delete/<int:post_id>')
-@author_required
+#@author_required
 def delete(post_id):
 	post=Post.query.filter_by(id=post_id).first_or_404()
 	post.live=False
@@ -116,7 +127,7 @@ def delete(post_id):
 	return redirect('/admin')
 	
 @app.route('/edit/<int:post_id>', methods=['POST','GET'])
-@author_required
+#@author_required
 def edit(post_id):
 	post=Post.query.filter_by(id=post_id).first_or_404()
 	form=PostForm(obj=post)

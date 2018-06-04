@@ -7,18 +7,18 @@
 		{% include 'blog/_flashmessages.html' %}
 		
 		<p>
-		Welcome, {{session.username}} - <a href="{{url_for('logout')}}">logout</a>
+		Welcome, {{session.username}} - <a href="{{url_for('post')}}">Create a new post</a>
 		</p>
 		
 		<div class="post-list">
 		{% for post in posts %}
-		<div class="post-item">
-		<h3><a href="{{url_for('article', slug=post.slug)}}">{{post.title}}</a></h3> 
-		{% if not post.live %} 
-		<h4>(deleted)</h4>
-		{% endif %}
-		Posted by <a href="#">{{post.author.fullname}}</a> on 
-		<a href="#">{{post.publish_date}}</a> in <a href="#">{{post.category.name}}</a>
+			<div class="post-item">
+			<h3><a href="{{url_for('article', slug=post.slug)}}">{{post.title}}</a></h3> 
+			{% if not post.live %} 
+				<h4>(deleted)</h4>
+			{% endif %}
+			Posted by <a href="#">{{post.author.fullname}}</a> on 
+			<a href="#">{{post.publish_date}}</a> in <a href="#">{{post.category.name}}</a>
 		{% endfor %}
 		</div>
 		</div>
