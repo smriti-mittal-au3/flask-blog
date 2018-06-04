@@ -11,28 +11,31 @@
 		{% endif %}
 		
 		{% from "_formhelpers.html" import render_field %}
+
 		{% if action=="edit" %}
-		<form method="POST" action={{url_for('edit', post_id=post.id)}} enctype="multipart/form-data" role=form>
+			<form method="POST" action="{{url_for('edit', post_id=post.id)}}" enctype="multipart/form-data" role="form">
 		{% else %}
-		<form method="POST" action={{url_for('post')}} enctype="multipart/form-data" role=form>
+			<form method="POST" action="{{ url_for('post') }}" enctype="multipart/form-data" role="form">
 		{% endif %}
 		
-			{{form.hidden_tag()}}
-			{% if action=="edit" and post.image %}
-			<img src="{{post.imgsrc}}" height="150px" class="img-rounded" />
-			{% endif %}
-			
-			{{ render_field(form.image, class='form-control') }}
-			{{ render_field(form.title, class='form-control') }}
-			{{ render_field(form.body, class='form-control') }}
-			{{ render_field(form.category, class='form-control') }}
-			{{ render_field(form.new_category, class='form-control') }}
-			
-			{% if action=="edit" %}
+		{{form.hidden_tag()}}
+
+		{% if action=="edit" and post.image %}
+		<img src="{{post.imgsrc}}" height="150px" class="img-rounded" />
+		{% endif %}
+		
+		{{ render_field(form.image, class='form-control') }}
+		{{ render_field(form.title, class='form-control') }}
+		{{ render_field(form.body, class='form-control') }}
+		{{ render_field(form.category, class='form-control') }}
+		{{ render_field(form.new_category, class='form-control') }}
+		
+		{% if action=="edit" %}
 			<button type="submit">Update</button>
-			{% else %}
+		{% else %}
 			<button type="submit">Submit</button>
-			{% endif %}
+		{% endif %}
+
 		</form>
 	</div>
 </div>

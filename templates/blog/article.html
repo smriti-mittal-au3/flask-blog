@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{post.title}}{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
 	<div class="row">
@@ -9,11 +9,12 @@
 				<img src="{{post.imgsrc}}" height="300px" class="img-rounded" />
 			{% endif %}
 		
-			<h3>{{post.title}}</h3>
+			<h3>{{ post.title }}</h3>
 			<!-- {% if session.get('is_author') %} -->
-			{% if author %}
-				<a href="{{url_for('delete',post_id=post.id)}}">Delete</a>
-				<a href="{{url_for('edit',post_id=post.id)}}">Edit</a>
+			<!-- {% if author %} -->
+			{% if session.get('is_author') %}
+				<a href="{{ url_for('delete', post_id=post.id) }}">Delete</a>
+				<a href="{{ url_for('edit', post_id=post.id) }}">Edit</a>
 			{% endif %}
 			
 			{{post.body|markdown}}
