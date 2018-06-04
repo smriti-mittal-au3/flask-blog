@@ -4,8 +4,8 @@ from flask_blog import db
 class Author(db.Model):
 	id=db.Column(db.Integer,primary_key=True)
 	fullname=db.Column(db.String(80))
-	email=db.Column(db.String(35),unique=True)
-	username=db.Column(db.String(80),unique=True)
+	email=db.Column(db.String(35))
+	username=db.Column(db.String(80))
 	password=db.Column(db.String(60))
 	is_author=db.Column(db.Boolean)
 	
