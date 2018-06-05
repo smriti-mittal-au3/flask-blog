@@ -5,7 +5,8 @@ from blog.models import Category
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from flask_wtf.file import FileField, FileAllowed
 
-class SetupForm(RegisterForm):
+#class SetupForm(RegisterForm):
+class SetupForm(Form):
 	name = StringField('Blog name', [
 		validators.Required(),
 		validators.Length(max=80)

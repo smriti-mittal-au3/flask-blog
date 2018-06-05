@@ -49,18 +49,19 @@ def setup():
 	form = SetupForm()
 	error=""
 	if form.validate_on_submit():
-		salt = bcrypt.gensalt()
-		pssword =form.password.data
-		hashed_password = bcrypt.hashpw(pssword.encode('utf8'),salt)
-		author = Author(form.fullname.data,
-					form.email.data,
-					form.username.data,
-					hashed_password,
-					True)
-		db.session.add(author)
-		db.session.flush()
-		if author.id:
-			blog = Blog(form.name.data, author.id)
+		admin_id = session.get('id')
+		# salt = bcrypt.gensalt()
+		# pssword =form.password.data
+		# hashed_password = bcrypt.hashpw(pssword.encode('utf8'),salt)
+		# author = Author(form.fullname.data,
+		# 			form.email.data,
+		# 			form.username.data,
+		# 			hashed_password,
+		# 			True)
+		# db.session.add(author)
+		# db.session.flush()
+		if admin_id:
+			blog = Blog(form.name.data, admin_id)
 			db.session.add(blog)
 			db.session.flush()
 			if blog.id:
@@ -114,7 +115,9 @@ def article(slug):
 	author=False
 	post=Post.query.filter_by(slug=slug).first_or_404()
 	if session.get('id')==post.author_id:
-		author=True
+	 	author=True
+	print(post)
+	print(author)
 	return render_template('blog/article.html', post=post, author=author)
 	
 @app.route('/delete/<int:post_id>')
