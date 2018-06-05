@@ -24,7 +24,7 @@ def index(page=1):
 	# if not blog:
 	# 	return redirect(url_for('setup'))
 	# posts=Post.query.filter_by(live=True, author_id=user_id).order_by(Post.publish_date.desc()).paginate(page,POSTS_PER_PAGE,True)
-	return render_template('blog/base.html')
+	return render_template('base.html')
 	
 	
 @app.route('/admin')
