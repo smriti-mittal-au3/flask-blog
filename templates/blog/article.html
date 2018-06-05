@@ -11,20 +11,24 @@
     {% include "blog/_flashmessages.html" %}
     
     {% if post.image %}
-    <img src="{{ post.imgsrc }}" height="300px" class="img-rounded" />
+    <img src="{{ post.imgsrc }}" height="250px" class="img-rounded" />
     {% endif %}
   
-    <h3>{{ post.title }} - <small>
-    {% if author %}
-      <a href="{{ url_for('edit', post_id=post.id) }}">Edit</a> -
-      <a href="{{ url_for('delete', post_id=post.id) }}">Delete</a> - 
-      <a href="{{ url_for('index') }}">Go back to all your posts</a>
-    {% endif %}
-    </small></h3>
+    <h3>{{ post.title }}</h3>
     
     <hr />
 
     {{ post.body|markdown }}
+
+    <hr />
+
+    <small>
+    {% if author %}
+      <a href="{{ url_for('edit', post_id=post.id) }}">Edit</a> -
+      <a href="{{ url_for('delete', post_id=post.id) }}">Delete</a> - 
+      <a href="{{ url_for('admin') }}">Go back</a>
+    {% endif %}
+    </small>
 
     <hr />
 
