@@ -45,6 +45,7 @@ def admin():
 	#	return abort(403)
 	
 @app.route('/setup', methods=['GET','POST'])
+@login_required
 def setup():
 	form = SetupForm()
 	error=""
@@ -79,6 +80,7 @@ def setup():
 
 @app.route('/post',methods=['GET','POST'])
 #@author_required
+@login_required
 def post():
 	form = PostForm()
 	if form.validate_on_submit():
