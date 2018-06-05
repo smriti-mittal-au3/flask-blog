@@ -17,14 +17,14 @@ POSTS_PER_PAGE=5
 @login_required
 def index(page=1):
 	#blog=Blog.query.first()
-	user_id = session.get('id')
-	print(user_id)
-	blog = Blog.query.filter_by(admin=user_id).first() #if user has created a blog, then, get it
-	print(blog)
-	if not blog:
-		return redirect(url_for('setup'))
-	posts=Post.query.filter_by(live=True, author_id=user_id).order_by(Post.publish_date.desc()).paginate(page,POSTS_PER_PAGE,True)
-	return render_template('blog/index.html', blog=blog, posts=posts)
+	# user_id = session.get('id')
+	# print(user_id)
+	# blog = Blog.query.filter_by(admin=user_id).first() #if user has created a blog, then, get it
+	# print(blog)
+	# if not blog:
+	# 	return redirect(url_for('setup'))
+	# posts=Post.query.filter_by(live=True, author_id=user_id).order_by(Post.publish_date.desc()).paginate(page,POSTS_PER_PAGE,True)
+	return render_template('blog/base.html')
 	
 	
 @app.route('/admin')
